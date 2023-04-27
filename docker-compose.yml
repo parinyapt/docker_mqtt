@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  mqtt:
+    container_name: mqtt-broker
+    image: eclipse-mosquitto:latest
+    restart: always
+    ports:
+      - 1883:1883
+      - 9001:9001
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./data:/mosquitto/data
+      - ./log:/mosquitto/log/
+      - ./password/password_file:/etc/mosquitto/password_file
+    networks:
+      - default
+
+networks:
+  default:
+    name: mqtt-network
+    external: true
